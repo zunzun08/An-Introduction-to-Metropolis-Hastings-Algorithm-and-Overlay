@@ -29,9 +29,10 @@ Pr(Z = 1 | K \in A) = \frac{Pr(Z=1 \cap K \in A)}{Pr(Z=1)}
 $$
 
 Plugging this back into $Pr(K \in A | Z=1)$:
-$$
+
+$
 Pr(K \in A | Z=1) = \frac{Pr(Z=1 \cap K \in A)}{Pr(Z=1)}
-$$
+$
 
 Looking deeper into $Pr(Z=1 \cap K \in A)$:
 By the law of Total Probability
