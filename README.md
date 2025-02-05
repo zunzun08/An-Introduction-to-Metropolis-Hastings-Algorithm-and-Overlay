@@ -17,37 +17,36 @@ $$
 Pr(X \in A) = Pr((K | Z=1) \in  A ) = Pr(K \in A | Z=1) 
 $$
 
-Using Bayes' Theorem:
-\[
-Pr(K \in A \mid Z=1) = \frac{Pr(Z = 1 \mid K \in A) \cdot Pr(K \in A)}{Pr(Z=1)}
-\]
+Using Bayes Theorem:
+$$
+Pr(K \in A | Z=1) = \frac{Pr(Z = 1 | K \in A) \cdot Pr(K \in A)}{Pr(Z=1)}
+$$
 
-Focus on \( Pr(Z = 1 \mid K \in A) \):
-\[
-Pr(Z = 1 \mid K \in A) = \frac{Pr(Z=1 \cap K \in A)}{Pr(K \in A)}
-\]
+Focus on $Pr(Z = 1 | K \in A)$:
 
-Plugging this back into \( Pr(K \in A \mid Z=1) \):
-\[
-Pr(K \in A \mid Z=1) = \frac{Pr(Z=1 \cap K \in A)}{Pr(Z=1)}
-\]
+$$
+Pr(Z = 1 | K \in A) = \frac{Pr(Z=1 \cap K \in A)}{Pr(Z=1)}
+$$
 
-Looking deeper into \( Pr(Z=1 \cap K \in A) \):
-By the law of Total Probability,
-\[
-Pr(Z=1 \cap K \in A) = \int_{A} f_{Z,K}(1,k) \, dx = \int_{A} f_{Z|K}(1|k) \cdot f_K(k) \, dx
-\]
-Assuming \( f_{Z|K}(1|k) = \frac{f(x)}{M g(x)} \) and \( f_K(k) = g(x) \), we have:
-\[
-Pr(Z=1 \cap K \in A) = \int_{A} \frac{f(x)}{M g(x)} \cdot g(x) \, dx = \frac{1}{M} \int_{A} f(x) \, dx = \frac{1}{M} Pr(X \in A)
-\]
+Plugging this back into $Pr(K \in A | Z=1)$:
+$$
+Pr(K \in A | Z=1) = \frac{Pr(Z=1 \cap K \in A)}{Pr(Z=1)}
+$$
 
-Now we turn our focus to \( Pr(Z=1) \), the probability of acceptance:
-\[
-Pr(Z=1) = \int_{D} \int_{0}^{1} f_{Z,K}(z,k) \, dz \, dx = \int_{D} \frac{f(x)}{M g(x)} \, dx = \frac{1}{M} \int_{D} \frac{f(x)}{g(x)} \, dx = \frac{1}{M}
-\]
+Looking deeper into $Pr(Z=1 \cap K \in A)$:
+By the law of Total Probability
+$$
+Pr(Z=1 \cap K \in A) = \int_{A} f_{Z \cap K} (1,k), dx = \int_{A} f_{Z=1}(1,k)\cdot g(x),dx = \int_{A} (\frac{f(x)}{Mg(x)})\cdot g(x),dx
+\Rightarrow \int_{A} \frac{f(x)}{M},dx = \frac{1}{M} \int_{A}f(x),dx = \frac{1}{M} Pr(X \in A) = \frac{1}{M} \cdot F(A)
+$$
 
+
+Now we turn our focus to $Pr(Z=1)$, the probability of acceptance:
+$$
+Pr(Z=1) = \iint_{0}^{\frac{f(x)}{Mg(x)}} g(x)\,dydx = \int_{D} \frac{f(x)}{Mg(x)}\,dx = \frac{1}{M} \int_D \frac{f(x)}{g(x)}\,dx = \frac{1}{M}
+$$
 Finishing up:
-\[
-Pr(K \in A \mid Z=1) = \frac{\frac{1}{M} Pr(X \in A)}{\frac{1}{M}} = Pr(X \in A)
-\]
+$$
+Pr(K \in A | Z=1) = \frac{\frac{1}{M} Pr(X \in A)}{\frac{1}{M}} = Pr(X \in A)
+$$
+
