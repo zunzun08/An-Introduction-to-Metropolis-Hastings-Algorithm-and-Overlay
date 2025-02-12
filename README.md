@@ -1,3 +1,8 @@
+## Conference Course: Monte Carlo Simulations
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 Rejection sampling works in the following way:
 $\space$
 
@@ -43,5 +48,3 @@ $$Pr(Z=1) =  \int Pr(Z = 1 | X=x)Pr(X =x)dx = $$
 $$ \Rightarrow \iint_{0}^{\frac{f(x)}{Mg(x)}} g(x)dydx = \int_{-\infty}^{\infty} \frac{f(x)}{Mg(x)}g(x)dx$$
 $$\Rightarrow \frac{1}{M} \int_{-\infty}^{\infty}f(x)dx = \frac{1}{M} * (1) = \frac{1}{M}$$
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
