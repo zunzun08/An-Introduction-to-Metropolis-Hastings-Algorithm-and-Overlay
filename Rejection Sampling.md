@@ -1,0 +1,90 @@
+## Background:
+Rejection Sampling provides us an introduction into using  it means to sample values from one distribution and say these samples come from a targeted distribution of interest.
+
+ assumes we have two probability densities $p(x)$ and $q(x)$ where $q(x)$ is our "target" distribution, i.e, the distribution we wish to sample from. We also have $p(x)$, our proposal distribution, which should be a distribution we can sample from.
+
+From our two densities, we construct the following constant M:
+$$M = \max_{x} \frac{q(x)}{p(x)}$$
+This constant M makes rejection sampling unique. M introduces a sense of likelihood between our pdfs and becomes the basis of what is called "acceptance-rejection" methods as we'll see when we write the algorithm and the proof of the algorithm.
+
+Once M has been constructed, we use the following algorithm to show that all r.v., $X$, sampled from $p(x)$ come from our target distribution, $q(x)$.
+
+## The algorithm:
+
+1. Draw a sample $X \sim p(x)$
+2. Draw a sample $u \sim U[0,1]$
+3. Test
+	If: 
+		$U < \frac{q(x)}{M*p(x)}$
+	then:
+		$X \sim q$
+	else:
+		Discard $X$ and $u$
+4. Repeat
+## Example
+
+## Proof of Rejection Sampling
+Our goal is to show $X \sim q(x)$. Probability tells us that if  $X \sim q(x)$, the following are equivalent:
+$$\Pr(X \in A) = \int_A q(x)\text{dx} = Q(x)$$
+Where $A$ is sample space of $q(x)$. This will be our "north star" for our proof.
+
+**Background:** When we run the rejection sampling algorithm, the algorithm theres a chance we accept or reject the sample. This chance is random before the algorithm begins and we've defined when the event can and can't happen. This makes the event we reject or accept a random variable (r.v) that we call $Z$ where $Z$ take on values 1 or 0, either the algorithm accepts or rejects the condition based on the inequality:
+$U < \frac{q(x)}{M*p(x)}$ 
+
+It follows that since M is the supremum of $\frac{q(x)}{p(x)}$, $\frac{q(x)}{M*p(x)}$ is bounded on the interval of $[0,1]$ for all x in the support of $p(x)$ and $q(x)$.This is perfect for us because we can now assign the probability an event occurs to our new random variable $Z$ as:
+$Z \sim  \text{Bernoulli}(\frac{f(x)}{Mg(x)})$
+
+
+We're in in the following result:
+
+$$X | Z=1$$
+
+Essentially, what is the distribution of X given we accept the condition? By doing so, we bound our r.v and can show K comes from the same distribution as $X$. The motivation comes from the definition of the cumulative density function (CDF):
+$$Pr(X \in A) = \int_{A} p(x)\text{dx} = P(A)$$
+
+over the sample space of p(x).
+If X and K share the same sample space after the accepting the condition then it follows:
+$$
+\Pr((X | Z=1) \in  A ) = \Pr(X \in A | Z=1) 
+$$
+
+Using Bayes' Theorem we can rewrite $\Pr(X \in A | Z=1)$ as:
+$$
+\Pr(X \in A | Z=1) = \frac{\Pr(Z = 1 | X \in A) \cdot \Pr(X \in A)}{\Pr(Z=1)}
+$$
+
+
+Lets turn our attention to the numerator. Since we have a conditional probability, we can make the following observation:
+
+$$
+\Pr(Z = 1 | X \in A) = \frac{\Pr(Z=1 \cap X \in A)}{\Pr(X \in A)}
+$$
+
+By multiplying both sides by $\Pr(X \in A)$ and plugging the right hand side into the numerator we arrive at:
+$$
+\Pr(X \in A | Z=1) = \frac{\Pr(Z=1 \cap X \in A)}{\Pr(Z=1)}
+$$
+
+Looking deeper into $\Pr(Z=1 \cap K \in A)$, this is something we can evaluate:
+By the law of Total Probability:
+
+$$
+\Pr(Z=1 \cap K \in A) = \int_{A} (U < \frac{q(x)}{Mp(x)}) \cdot p(x)\text{dx} = \iint_{0}^{1} (U < \frac{q(x)}{Mp(x)}) \cdot p(x) \text{dx} = \int_{-\infty}^{a} \frac{q(x)}{Mp(x)}\cdot p(x) \text{dx}
+$$
+
+$$
+\Rightarrow \int_{-\infty}^{a} \frac{q(x)}{M}\text{dx} = \frac{1}{M} \int_{-\infty}^{a}q(x)\text{dx} = \frac{1}{M} \Pr(X \in A) = \frac{1}{M} \cdot Q(x)
+$$
+Now we turn our focus to $\Pr(Z=1)$. 
+$$
+\Pr(Z=1) = \int_{-\infty}^{\infty} 1(U < \frac{q(x)}{Mp(x)}) p(x) \text{dx} = \int_{-\infty}^{\infty} \frac{q(x)}{Mp(x)}p(x) \text{dx} = \frac{1}{M} \int_{-\infty}^{\infty} q(x)\text{dx} = \frac{1}{M} (1) = \frac{1}{M}
+$$
+The key step here is $1$ which is an indicator variable that tells us if the condition: $U < \frac{p(x)}{Mq(x)}$ 
+is met or not.
+
+
+Finishing up we arrive at out final result:
+$$
+\Pr(X \in A | Z=1) = \frac{\frac{1}{M} \Pr(X \in A)}{\frac{1}{M}} = \Pr(X \in A) = Q(x)
+$$
+Therefore, given we accept the random variable we sampled, We can say $X \sim q(x)$
