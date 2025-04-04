@@ -24,35 +24,28 @@ Once M has been constructed, we use the following algorithm to show that all r.v
 ## Example
 
 ## Proof of Rejection Sampling
-Our goal is to show $X \sim q(x)$. Probability tells us that if  $X \sim q(x)$, the following are equivalent:
+Our goal is to show once we follow the rejection sample algorithm, the random variable we drew $X \sim q(x)$. Probability theory tells us that if  $X \sim q(x)$, the following are equivalent:
 $$\Pr(X \in A) = \int_A q(x)\text{dx} = Q(x)$$
-Where $A$ is sample space of $q(x)$. This will be our "north star" for our proof.
+Where $A$ is sample space of $q(x)$. This will be the idea we wish to follow for proof of the rejection sampling algorithm.
 
-**Background:** When we run the rejection sampling algorithm, the algorithm theres a chance we accept or reject the sample. This chance is random before the algorithm begins and we've defined when the event can and can't happen. This makes the event we reject or accept a random variable (r.v) that we call $Z$ where $Z$ take on values 1 or 0, either the algorithm accepts or rejects the condition based on the inequality:
+When we run the rejection sampling algorithm, theres a chance we accept or reject the sample. This chance is random before the algorithm begins and know the outcome is binary. Whether or not the outcome occurs for every iteration of the algorithm is a random variable (r.v) that we call $Z$ where $Z$ take on values 1 or 0, either the algorithm accepts or rejects the sample. We've defined the conditions when this sample is accepted rejected in the algorithm and it is based on the inequality:
 $U < \frac{q(x)}{M*p(x)}$ 
 
-It follows that since M is the supremum of $\frac{q(x)}{p(x)}$, $\frac{q(x)}{M*p(x)}$ is bounded on the interval of $[0,1]$ for all x in the support of $p(x)$ and $q(x)$.This is perfect for us because we can now assign the probability an event occurs to our new random variable $Z$ as:
-$Z \sim  \text{Bernoulli}(\frac{f(x)}{Mg(x)})$
+It follows that since M is the supremum of $\frac{q(x)}{p(x)}$, $\frac{q(x)}{M*p(x)}$ is bounded on the interval of $[0,1]$ for all x in the support of $p(x)$ and $q(x)$.This is perfect for us because we can now assign the probability the event occurs to our new random variable $Z$ as:
+$Z \sim  \text{Bernoulli}(\frac{q(x)}{Mp(x)})$
 
 
-We're in in the following result:
+Now that $Z$ is well defined, we turn our attention to the following:
 
 $$X | Z=1$$
 
-Essentially, what is the distribution of X given we accept the condition? By doing so, we bound our r.v and can show K comes from the same distribution as $X$. The motivation comes from the definition of the cumulative density function (CDF):
-$$Pr(X \in A) = \int_{A} p(x)\text{dx} = P(A)$$
-
-over the sample space of p(x).
-If X and K share the same sample space after the accepting the condition then it follows:
-$$
-\Pr((X | Z=1) \in  A ) = \Pr(X \in A | Z=1) 
-$$
-
+Essentially, what is the distribution of $X$ after we've accepted the sample? We want to show that given we've accepted our sample, we can say $X|Z=1 \sim q(x)$. To do so we'll need the following:
+$$\Pr(X \in A | Z=1) = Q(x)$$
+where $A$ is the sample space of $q(x)$.
 Using Bayes' Theorem we can rewrite $\Pr(X \in A | Z=1)$ as:
 $$
 \Pr(X \in A | Z=1) = \frac{\Pr(Z = 1 | X \in A) \cdot \Pr(X \in A)}{\Pr(Z=1)}
 $$
-
 
 Lets turn our attention to the numerator. Since we have a conditional probability, we can make the following observation:
 
@@ -75,13 +68,12 @@ $$
 $$
 \Rightarrow \int_{-\infty}^{a} \frac{q(x)}{M}\text{dx} = \frac{1}{M} \int_{-\infty}^{a}q(x)\text{dx} = \frac{1}{M} \Pr(X \in A) = \frac{1}{M} \cdot Q(x)
 $$
-Now we turn our focus to $\Pr(Z=1)$. 
+Now we turn our focus to the denominator $\Pr(Z=1)$. 
 $$
 \Pr(Z=1) = \int_{-\infty}^{\infty} 1(U < \frac{q(x)}{Mp(x)}) p(x) \text{dx} = \int_{-\infty}^{\infty} \frac{q(x)}{Mp(x)}p(x) \text{dx} = \frac{1}{M} \int_{-\infty}^{\infty} q(x)\text{dx} = \frac{1}{M} (1) = \frac{1}{M}
 $$
 The key step here is $1$ which is an indicator variable that tells us if the condition: $U < \frac{p(x)}{Mq(x)}$ 
 is met or not.
-
 
 Finishing up we arrive at out final result:
 $$
