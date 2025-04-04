@@ -1,6 +1,3 @@
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
 
 # The Metropolis Hastings Algorithm
 
@@ -13,7 +10,7 @@ The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) meth
 **Example:**
 Suppose $p(x) \sim N(0,1)$ and $q(x) \sim N(1,2)$ where $p(x)$ is a distribution that is easy to sample from and $q(x)$ is difficult to sample from. By applying the MH Algorithm 10,000 times, and only sampling from $p(x)$, we can achieve the following result:
 
-![Alt Text](metropolis_hastings-ezgif.com-video-to-gif-converter.gif)
+![Alt Text](Animations/metropolis_hastings-ezgif.com-video-to-gif-converter.gif)
 
 Effectively, we are taking samples from $p(x)$ and concluding that they are in fact coming from $q(x)$.
 
