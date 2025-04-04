@@ -1,9 +1,6 @@
 
 # The Metropolis Hastings Algorithm
 
-Cristian Compean (czc236)
-Proposal Date: (4/24/25)
-
 **Introduction:**
 The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) method that allows us to generate samples from a target probability distribution of interest. It works by selecting two probability density functions (pdf): one pdf represents the target distribution and the other a proposal distribution. Through an iterative process, samples are drawn from the proposal pdf, and are then accepted or rejected based on a criterion that ensures the final collection of samples approximate the target distribution. After completing the process, the MH algorithm simulates sampling from the target distribution without the use of sampling from the target distribution.
 
