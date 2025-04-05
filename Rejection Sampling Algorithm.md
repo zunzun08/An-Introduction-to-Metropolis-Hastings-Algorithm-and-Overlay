@@ -1,13 +1,16 @@
-## Background:
-Rejection Sampling provides us an introduction into using  it means to sample values from one distribution and say these samples come from a targeted distribution of interest.
+## Overview:
+Rejection Sampling provides us a gentle and straightforward introduction into sampling random variables from a target distbruition, called $q(x)$, that is inaccesible but known and a proposal distribution, call it $p(x)$, from which we can easily sample from.
 
- assumes we have two probability densities $p(x)$ and $q(x)$ where $q(x)$ is our "target" distribution, i.e, the distribution we wish to sample from. We also have $p(x)$, our proposal distribution, which should be a distribution we can sample from.
 
-From our two densities, we construct the following constant M:
 
-$$M = \max_{x} \frac{q(x)}{p(x)}$$
 
-This constant M makes rejection sampling unique. M introduces a sense of likelihood between our pdfs and becomes the basis of what is called "acceptance-rejection" methods as we'll see when we write the algorithm and the proof of the algorithm.
+
+
+Using our target and proposal distribution, we construct the following constant M:
+
+$$M = \sup_{x \in \Omega} \frac{q(x)}{p(x)}$$
+
+We note that $M \geq 1$. This constant M makes rejection sampling unique. M introduces a sense of likelihood between our pdfs and becomes the basis of what is called "acceptance-rejection" methods as we'll see when we write the algorithm and the proof of the algorithm.
 
 Once M has been constructed, we use the following algorithm to show that all r.v., $X$, sampled from $p(x)$ come from our target distribution, $q(x)$.
 
