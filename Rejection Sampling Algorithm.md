@@ -1,26 +1,29 @@
 ## Overview:
-Rejection Sampling provides us a gentle and straightforward introduction into sampling random variables from a target distbruition, called $q(x)$, that is inaccesible but known and a proposal distribution, call it $p(x)$, from which we can easily sample from.
+Rejection Sampling is an algorithm that provides us with an intuitive way o sample from random variables from a **target distribution**, called $q(x)$, that cannot be sampled from directly but is known and a **proposal distribution**, call it $p(x)$, that can be sampled from directly. The rejection sampling algorithm requires samples to be drawn from $p(x)$ and are evaluated to accept whether the sample can be assumed to be drawn from $q(x)$. If the sample cannot be assumed to be drawn from $q(x)$, the sample is rejected and the process is repeated. The underlying acceptance of the sample drawn from $p(x)$ relies on the overlap between $p(x)$ and $q(x)$. If $p(x)$ and $q(x)$ are similar distributions then we say the two distributions have high overlap and samples drawn from either distribution could be drawn from the other. The opposite is true for distributions with low overlap. Rejection sampling provides us with an introductory understanding of overlap as we look for distributions from which we construct the constant $M$: 
 
+$$M = \sup_{x \in \Omega} \frac{q(x)}{p(x)} < \infty$$
 
+We note that $M \geq 1$:
+**Proof**:
+	Suppose $M < 1$. Since M is the supremum of $\frac{q(x)}{p(x)}$ then the following is true:
+	$$M \geq \frac{q(x)}{p(x)} \Rightarrow Mp(x) \geq q(x)$$
+	Since $p(x)$ and $q(x)$ are p.d.f's then they integrate to 1. Therefore, if $M < 1$ then $\int p(x)dx \neq 1$ which is a contraction.
+	Suppose $M = 1$, then clearly $p(x) = q(x)$.
 
+Since $M \geq 1$, we know the following must be true for $q(x)$:
+1. $q(x) \geq p(x) \space \space \space \forall x \in \Omega$
+2. $p(x)$ and $q(x)$ share the same $\Omega$
 
+We can quantify the measure of overlap with $M$ since $M$ is a measure of similarity between $p(x)$ and $q(x)$. If $M$ is very close to 1, $p(x)$ and $q(x)$ are quite similar. if M is very close to 0, $p(x)$ and $q(x)$ are not similar. Note, a downside to rejection sampling is that $M$ must exist which heavily constrains the number of density functions we can apply rejection sampling sampling to. 
 
+Once we've determined $M$, we can generate samples $X_1,X_2,…,X_n$ from $p(x)$ and apply the rejection sampling algorithm. The accepted samples will then follow the target distribution $q(x)$.
 
-Using our target and proposal distribution, we construct the following constant M:
-
-$$M = \sup_{x \in \Omega} \frac{q(x)}{p(x)}$$
-
-We note that $M \geq 1$. This constant M makes rejection sampling unique. M introduces a sense of likelihood between our pdfs and becomes the basis of what is called "acceptance-rejection" methods as we'll see when we write the algorithm and the proof of the algorithm.
-
-Once M has been constructed, we use the following algorithm to show that all r.v., $X$, sampled from $p(x)$ come from our target distribution, $q(x)$.
-
-## The algorithm:
-
+## Rejection-Sampling algorithm:
 1. Draw a sample $X \sim p(x)$
 2. Draw a sample $u \sim U[0,1]$
 3. Test
 	If: 
-		$U < \frac{q(x)}{M*p(x)}$
+		$u < \frac{q(x)}{M*p(x)}$
 	then:
 		$X \sim q$
 	else:
@@ -96,3 +99,9 @@ $$
 $$
 
 Therefore, given we accept the random variable we sampled, We can say $X \sim q(x)$
+
+
+
+While rejection sampling does provide us with the result we want, there are two major disadvantages to it:
+1.  It is horribly inefficient algorithm. This is because there's no guarantee how many samples we'll need to get n samples of X coming from q. This is because if we don't accept a sample, we discard it and run the algorithm again. *Example of low acceptance rate algo here:*
+2. 
