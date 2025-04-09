@@ -29,7 +29,31 @@ Once we've determined $M$, we can generate samples $X_1,X_2,…,X_n$ from $p
 	else:
 		Discard $X$ and $u$
 4. Repeat
-## Example
+
+Here is an example of the algorithm implemented in Python:
+```
+def rejection_sampling(num_samples, M, prop_dist, target_dist):
+    samples = []
+    for _ in range(num_samples):
+            #Random variable from our proposed distribution
+            x = prop_dist.rvs()
+            #Random variable from our uniform distribution
+            u = scipy.stats.uniform.rvs()
+                
+            #Ratio is the realized random variable evaluated at both the proposed and the target distributions
+            ratio = target_dist.pdf(x) / (prop_dist.pdf(x)*M)
+            
+            
+            if u <= (ratio):  # Accept-reject condition
+                
+                samples.append(x)
+    return np.array(samples)
+
+```
+
+## Example:
+Here we use $p \sim \text{Exp}(\lambda = \frac{1}{2})$ to target a standard exponential distribution:
+![Alt Text](Animations/rejection_sampling_example.png)
 
 ## Proof of Rejection Sampling
 Our goal is to show once we follow the rejection sample algorithm, the random variable we drew $X \sim q(x)$. Probability theory tells us that if  $X \sim q(x)$, the following are equivalent:
