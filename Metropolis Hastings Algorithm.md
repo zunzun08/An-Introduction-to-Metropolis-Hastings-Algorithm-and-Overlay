@@ -1,11 +1,5 @@
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
 
 # The Metropolis Hastings Algorithm
-
-Cristian Compean (czc236)
-Proposal Date: (4/24/25)
 
 **Introduction:**
 The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) method that allows us to generate samples from a target probability distribution of interest. It works by selecting two probability density functions (pdf): one pdf represents the target distribution and the other a proposal distribution. Through an iterative process, samples are drawn from the proposal pdf, and are then accepted or rejected based on a criterion that ensures the final collection of samples approximate the target distribution. After completing the process, the MH algorithm simulates sampling from the target distribution without the use of sampling from the target distribution.
@@ -13,7 +7,7 @@ The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) meth
 **Example:**
 Suppose $p(x) \sim N(0,1)$ and $q(x) \sim N(1,2)$ where $p(x)$ is a distribution that is easy to sample from and $q(x)$ is difficult to sample from. By applying the MH Algorithm 10,000 times, and only sampling from $p(x)$, we can achieve the following result:
 
-![Alt Text](metropolis_hastings-ezgif.com-video-to-gif-converter.gif)
+![Alt Text](Animations/metropolis_hastings-ezgif.com-video-to-gif-converter.gif)
 
 Effectively, we are taking samples from $p(x)$ and concluding that they are in fact coming from $q(x)$.
 
