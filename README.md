@@ -25,7 +25,7 @@ Throughout this analysis, we place special emphasis on a concept called "overlap
 Finally, we conclude with a real-world economic application of the Metropolis-Hastings algorithm and overlap. We compare the interpretability of overlap with traditional p-values, arguing that overlap provides a more intuitive and meaningful measure of distributional similarity in many cases.
 
 # Table of Contents:
-![Rejection Sampling](https://github.com/zunzun08/zunzun08.github.io/blob/5f740ba5e37a88169aa036eab65586c04a98524a/Rejection%20Sampling%20Algorithm.md)
-![Markov Chains, Monte Carlo Simulations, and Monte Carlo Markov Chains]
-![The Metropolis Hastings Algorithm](https://github.com/zunzun08/An-Introduction-to-Metropolis-Hastings-Algorithm-and-Overlay/blob/main/Metropolis%20Hastings%20Algorithm.md)
+### ![Rejection Sampling](https://github.com/zunzun08/zunzun08.github.io/blob/5f740ba5e37a88169aa036eab65586c04a98524a/Rejection%20Sampling%20Algorithm.md)
+### ![Markov Chains, Monte Carlo Simulations, and Monte Carlo Markov Chains]
+### ![The Metropolis Hastings Algorithm](https://github.com/zunzun08/An-Introduction-to-Metropolis-Hastings-Algorithm-and-Overlay/blob/main/Metropolis%20Hastings%20Algorithm.md)
 
