@@ -2,10 +2,10 @@
 # The Metropolis Hastings Algorithm
 
 **Introduction:**
-The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) method that allows us to generate samples from a target probability distribution of interest. It works by selecting two probability density functions (pdf): one pdf represents the target distribution and the other a proposal distribution. Through an iterative process, samples are drawn from the proposal pdf, and are then accepted or rejected based on a criterion that ensures the final collection of samples approximate the target distribution. After completing the process, the MH algorithm simulates sampling from the target distribution without the use of sampling from the target distribution.
+The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) method that allows us to generate samples from a "target" distribution. A target distribution has function form but whose constant of integration is unknown. This makes sampling from the distribution impossible via rendering common sampling techniques such as the inverse CDF method of sampling useless. The Metropolis Hastings algorithm works by an iterative process where samples are drawn from the proposal density function and samples are then accepted or rejected based on measures of overlap. That is, how likely one sample from our proposal distribution is to come from our target distriution. Finally after a few thousand iternations, the MH algorithm simulates sampling from the target distribution, bypassing the need to calculate the constant of integration for the target distribution. 
 
 **Example:**
-Suppose $p(x) \sim N(0,1)$ and $q(x) \sim N(1,2)$ where $p(x)$ is a distribution that is easy to sample from and $q(x)$ is difficult to sample from. By applying the MH Algorithm 10,000 times, and only sampling from $p(x)$, we can achieve the following result:
+Suppose $q(x) \sim N(0,1)$ and $p(x) \sim N(1,2)$ where $p(x)$ is a distribution that is easy to sample from and $q(x)$ is difficult to sample from. By applying the MH Algorithm 10,000 times, and only sampling from $p(x)$, we can achieve the following result:
 
 ![Alt Text](Animations/metropolis_hastings-ezgif.com-video-to-gif-converter.gif)
 
