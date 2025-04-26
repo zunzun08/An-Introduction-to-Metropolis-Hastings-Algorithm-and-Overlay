@@ -12,7 +12,7 @@ Suppose $q(x) \sim N(0,1)$ and $p(x) \sim N(1,2)$ where $p(x)$ is a distribution
 Effectively, we are taking samples from $p(x)$ and concluding that they are in fact coming from $q(x)$.
 
 ### Mathematical Background:
-Building up to the MH algorithm requires we define a few concepts from Stochastic Processes before we begin analyzing and proving why Metropolis works.
+Before formally defining the Metropolis Hastings,I'd like to recall or introduce a few concepts the reader should be familiar with to understand the proof of the Metropolis-Hastings Algorithm.
 
 
 **Monte Carlo**:
@@ -158,33 +158,21 @@ f(x_{n+1} | x_n) = \frac{q(x_{n+1} | x_n) \alpha(x_{n+1}, x_n)}{\int q(x_{n+1}|x
 }
 $$
 
-#### Detailed Balance (Reversibility):
-**EXPLAIN EXPLAIN EXPLAIN**
-
-$$
-q(x')\Pr(x', x) = q(x)\Pr(x,x')
-$$
-
 #### Proving $q(x_{n+1}) = \int \Pr(X_{n+1} | X_n)q(x_n)\text{dx}$:
+We'd like to show the density kernel we just constructed converges to the target distribution. Here we assume our density is egodic where detailed balance is a sufficient condition to show there exists a stationary distribution.
+Detailed Balance tells us the rate of transition given we start at $x'$ and move to $x_n$ must be equal to the rate of transition given we start at $x_n$ and move to $x'$. For the Metropolis Hastings, this looks like:
 
-**USE DETAILED BALANCE HERE**
-
-
-
-
-## Downsides to Metropolis Hastings:
-
-**Autocorrelation**:
-The first few thousand samples are likely to be autocorrelated even if the chain converges to $p$. This results in the first few thousand samples needing to be removed in what's referred to as a "burn in" period.
-
-*PROVIDE EXAMPLE*
+$$q(x')\Pr(X_{n+1} = x'| X_n = x_n) = q(x_n)$$
 
 
-**Computationally Expensive**:
-Simulations may need to be run on the order of thousands to achieve sufficient statistical power for specific tests. This could result in millions of simulations being required, leading to computational demands that exceed the capacity of a single computer. To address this, parallelization or advanced techniques such as Stochastic Gradient MCMC may be necessary.
+Claim: The Metropolis Hastings algorithm satisfies detailed balance.
+We know the probability of accepting a sample is:
+$$\Pr(X_{n+1} = x'| X_n = x_n) = p(x'|x_n) \min\{1, \frac{q(x')p(x_n|x')}{q(x_n)p(x'|x_n)}\}$$
 
+We can expand the RHS further:
+$$=\min\{p(x'|x_n), \frac{q(x')p(x_n|x')}{q(x_n)}\}$$
+If we multiply both sides by $q(x_n)$, we get:
+$$\Pr(x'|x_n)q(x_n)=\min\{q(x_n)p(x'|x_n),q(x')p(x_n|x')\}$$
+$$\Rightarrow \Pr(x'|x_n)q(x_n) = \Pr(x_n|x')q(x')$$
+Thus, the Metropolis Hastings Algorithm satisfies detailed balance.
 
-## Applications and Extensions of Metropolis-Hastings:
-
-### Bayesian Inference:
-Stochastic Gradient MCMC - Uses small batches of data at a time to approximate the target distribution by evaluating the likelihood a random subset is representative of the data.
