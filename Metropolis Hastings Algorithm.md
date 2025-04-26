@@ -167,7 +167,8 @@ $$q(x')\Pr(X_{n+1} = x'| X_n = x_n) = q(x_n)$$
 
 Claim: The Metropolis Hastings algorithm satisfies detailed balance.
 We know the probability of accepting a sample is:
-$$\Pr(X_{n+1} = x'| X_n = x_n) = p(x'|x_n) \min \{ 1, \frac{q(x')p(x_n|x')}{q(x_n)p(x'|x_n)} \}$$
+
+$$\Pr(X_{n+1} = x'| X_n = x_n) = p(x'|x_n)\alpha(x',x_n) =p(x'|x_n) \min \{ 1, \frac{q(x')p(x_n|x')}{q(x_n)p(x'|x_n)} \}$$
 
 We can expand the RHS further:
 
@@ -175,7 +176,7 @@ $$=\min\{p(x'|x_n), \frac{q(x')p(x_n|x')}{q(x_n)}\}$$
 
 If we multiply both sides by $q(x_n)$, we get:
 
-$$\Pr(x'|x_n)q(x_n)=\min \{ q(x_n)p(x'|x_n),q(x')p(x_n|x') \}$$
+$$\Pr(x'|x_n)q(x_n)= \min ( q(x_n)p(x'|x_n),q(x')p(x_n|x'))$$
 
 $$\Rightarrow \Pr(x'|x_n)q(x_n) = \Pr(x_n|x')q(x')$$
 
