@@ -2,7 +2,7 @@
 # The Metropolis Hastings Algorithm
 
 **Introduction:**
-The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) method that allows us to generate samples from a "target" distribution. A target distribution is a function whose form is known but whose constant of integration is unknown and/or cannot be calculated through traditional methods or numerical methods. Because the constant of integration cannot be calculated, traditional methods of smpling such as the inverse CDF method cannot be applied. Instead, we'll explore the Metropolis Hastings algorithm which works by an iterative process: it draws samples from a proposal probability density function and based on overlap, the probability a sample drawn from the proposal can replace a sample from the target subsequently, the sample is accepted or rejected. After a few thousand iterations, the MH algorithm simulates sampling from the target distribution, without ever cacluclating the constant of integration. 
+The Metropolis-Hastings (MH) algorithm is a Monte Carlo Markov Chain (MCMC) method that allows us to generate samples from a "target" distribution. A target distribution is a function whose form is known but whose constant of integration is unknown and/or cannot be calculated through traditional methods or numerical methods. Because the constant of integration cannot be calculated, traditional methods of smpling such as the inverse CDF method cannot be applied. Instead, we'll explore the Metropolis Hastings algorithm which works by an iterative process: it draws samples from a proposal probability density function and based on overlap, the probability a sample drawn from the proposal can replace a sample from the target subsequently, the sample is accepted or rejected. After a few thousand iterations, the MH algorithm simulates sampling from the target distribution, without ever calculating the constant of integration. 
 
 **Example:**
 Suppose $q(x) \sim N(0,1)$ and $p(x) \sim N(1,2)$ where $p(x)$ is a distribution that is easy to sample from and $q(x)$ is difficult to sample from. By applying the MH Algorithm 10,000 times, and only sampling from $p(x)$, we can achieve the following result:
@@ -12,14 +12,14 @@ Suppose $q(x) \sim N(0,1)$ and $p(x) \sim N(1,2)$ where $p(x)$ is a distribution
 Effectively, we are taking samples from $p(x)$ and concluding that they are in fact coming from $q(x)$.
 
 ### Mathematical Background:
-Before formally defining the Metropolis Hastings,I'd like to recall or introduce a few concepts the reader should be familiar with to understand the proof of the Metropolis-Hastings Algorithm.
+Before formally defining the Metropolis Hastings, I'd like to recall or introduce a few concepts the reader should be familiar with to understand the proof of the Metropolis-Hastings Algorithm.
 
 
 **Monte Carlo**:
 
 Monte Carlo methods are a class of computational techniques that use random sampling to approximate mathematical quantities, such as integrals. These methods are useful when analytical solutions are difficult or impossible to obtain.
 
-Given a probability density function \(f(x)\) and a independently and identically distributed (i.i.d) sample $x_1, x_2, ..., x_n$ drawn from $f(x)$, we can approximate the integral of a continuous function $a(x)$ with respect to $f(x)$:
+Given a probability density function $f(x)$ and independently and identically distributed (i.i.d) samples $x_1, x_2, ..., x_n$ from $f(x)$, we can approximate the integral of a continuous function $a(x)$ with respect to $f(x)$:
 
 $$
 I = \int a(x)f(x)dx
@@ -52,6 +52,19 @@ Since $x_1, x_2, ..., x_n$ are i.i.d
 $$
 E[\hat{I}] = \frac{1}{n} (nI) = I = E[a(x)]
 $$
+
+We can also show that as the number of samples increase, our stimate approaches the true value.
+Proof:
+
+$$Var[\hat{I}] = Var[\frac{1}{n} \sum_{i=1}^na(x_i)] = \frac{1}{n^2}\sum_i Var[a(x_i)]$$
+
+Since our samples are i.i.d:
+
+$$=\frac{1}{n^2}(nVar[a(x_i)]) = \frac{1}{n}Var[a(x_i)]$$
+
+Now applying the limit:
+
+$$\lim_{n \rightarrow \infty} \frac{1}{n}Var[a(x_i)] = 0$$
 
 **Markov Chain Stationarity Property:**
 
@@ -92,7 +105,7 @@ By the definition above and the description above, the MH algorithm is an MCMC m
 3. Take $x'$ from $p(x)$
 4. Evaluate $q(x')$
 5. Compute 
-$\alpha(x', x) = \min(1, \frac{p(x')q(x)}{q(x')p(x)})$
+$\alpha(x', x) = \min(1, \frac{p(x')q(x|x')}{p(x)q(x'|x)})$
 
 6. Draw a random sample $u$ from $\text{Uniform}[0,1]$
 7. Accept or reject: 
@@ -102,12 +115,9 @@ $\alpha(x', x) = \min(1, \frac{p(x')q(x)}{q(x')p(x)})$
 		$x_2 = x_1$
 
 ## Proof of Metropolis Hastings Algorithm
-We start with the following idea:
-Applying the MH Algorithm does the following:
+From the algorithm we know applying the MH Algorithm does the following:
 
-$$
-X[1] _{X_1} \xrightarrow{\text{alg.}} X[2] _{X_2}
-$$
+![Animations/MH Movement.png]
 
 This implies that there must be a density $\text{Pr}(X_2 | X_1)$ that facilitates this movement of random variables.
 
