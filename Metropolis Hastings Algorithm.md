@@ -117,33 +117,32 @@ $\alpha(x', x) = \min(1, \frac{p(x')q(x|x')}{p(x)q(x'|x)})$
 ## Proof of Metropolis Hastings Algorithm
 From the algorithm we know applying the MH Algorithm does the following:
 
-![Animations/MH Movement.png]
+![Alt Text](Animations/MH Movement.png)
 
-This implies that there must be a density $\text{Pr}(X_2 | X_1)$ that facilitates this movement of random variables.
+This implies that for any $X_i$ and $X_{i+1}$ for $1 \leq i \leq n$ there must be a density $\text{Pr}(X_{i+1} | X_i)$ that facilitates the movement of random variables.
 
 
 We also wish to prove $q(y) = \int \Pr(y | x) q(x) dx$, the stationarity condition for our target distribution.
-However, we first need to find what $Pr(x_{n+1} | x_n)$ is first before we can show the stationary condition holds
+However, we first need to find what $Pr(x_{n+1} | x_n)$ is before we can show the stationary condition holds.
 
 #### Finding $\Pr(X_{n+1} | X_n)$:
-$X_{n+1}$ can take on two values. Either $X_{n+1}$ takes on the values of $x'$ or we choose to accept $X_n \sim q$ given we reject $x'$. 
+$X_{n+1}$ can take on two values. Either $X_{n+1}$ takes on the values of $x'$ with some probability w(x) or the sample is rejected in which case $X_{n+1} = x_n$ with praobability 1-w(x). 
 We can represent this as:
 
 $$
 X_{n+1} = \begin{cases}
 x' \text{ determined by w(x)} \\
-X_n \text{ 1- w(x)}
+x_n \text{ 1- w(x)}
 \end{cases}
 $$
 
-Where $w(x)$ is going to be our "weight" or acceptance of probability for our density function.
 Since we are looking to determine $\Pr(X_{n+1} | X_n)$, using the Law of Total Probability, we get:
 
 $$
 \Pr(X_{n+1} | X_n) = \text{Pr}(X_{n+1} = x' | X_{n} = x_{n} ) + (1- \text{Pr}(X_{n+1} = x' | X_{n} = x_{n} )) \cdot 1(X_{n+1} = X_n)
 $$
 
-Where $1(X_{n+1} = X_n)$ is an indicator variable that tells us our sample was rejected. Let's take this apart and quantify $\Pr(X_{n+1} = x' | X_{n} = x_n)$, the probability we move from one state to the next.
+Where $1(X_{n+1} = X_n)$ is an indicator variable that tells us our sample was rejected. Let's take  $\Pr(X_{n+1} = x' | X_{n} = x_n)$, the probability we move from one state to the next apart and quantify the result.
 
 $$
 \Pr(X_{n+1} = x' | X_{n} = x_n) = \Pr(X' | X_n = x_n) \cdot \Pr(U \leq \alpha(x', x_n) | X' = x', X_n =x_n) =q(x' | x_n) \alpha(x', x_n) 
